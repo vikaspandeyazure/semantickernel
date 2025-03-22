@@ -6,7 +6,36 @@ using Microsoft.SemanticKernel.Agents;
 public class SelectionFunctionFactory
 {
 
-public static KernelFunction CreateSelectionFunction(
+// public static KernelFunction CreateSelectionFunction(
+//         string generatorName,
+//         string executorName,
+//         string summarizorName,
+//         string reviewerName)
+//     {
+//         return AgentGroupChat.CreatePromptFunctionForStrategy(
+//             $$$"""
+//             Your job is to determine which participant takes the next turn in a conversation according to the action of the most recent participant.
+//             State only the name of the participant to take the next turn.
+//             Never choose the participant named in the RESPONSE.
+
+//             Choose only from these participants:
+//             - {{{generatorName}}}
+//             - {{{executorName}}}
+//             - {{{summarizorName}}}
+//             - {{{reviewerName}}}
+
+//             Always follow these rules when choosing the next participant:
+//             - After {{{generatorName}}} replies, it is {{{executorName}}}'s turn.
+//             - After {{{executorName}}} replies, it is {{{summarizorName}}}'s turn.
+//             - After {{{summarizorName}}} replies, it is {{{reviewerName}}}'s turn.
+            
+//             RESPONSE:
+//             {{$lastmessage}}
+//             """,
+//             safeParameterNames: "lastmessage");
+//     }
+
+    public static KernelFunction CreateSelectionFunction(
         string generatorName,
         string executorName,
         string summarizorName,
@@ -24,48 +53,18 @@ public static KernelFunction CreateSelectionFunction(
             - {{{summarizorName}}}
             - {{{reviewerName}}}
 
-            Always follow these rules when choosing the next participant:
-            - After {{{generatorName}}} replies, it is {{{executorName}}}'s turn.
-            - After {{{executorName}}} replies, it is {{{summarizorName}}}'s turn.
-            - After {{{summarizorName}}} replies, it is {{{reviewerName}}}'s turn.
-            
+            Always follow these rules when choosing the next participant and don't miss calling the participant:
+            - After user input, it is {{{generatorName}}}'s turn.
+            - If RESPONSE is by {{{generatorName}}} but SQL is not generated then it is {{{reviewerName}}}'s turn
+            - If RESPONSE is by {{{generatorName}}} and SQL is generated then it is {{{executorName}}}'s turn
+            - If RESPONSE is by {{{executorName}}}, it is {{{summarizorName}}}'s turn.
+            - If RESPONSE is by {{{summarizorName}}}, it is {{{reviewerName}}}'s turn.
+                        
             RESPONSE:
             {{$lastmessage}}
             """,
             safeParameterNames: "lastmessage");
     }
-
-    // public static KernelFunction CreateSelectionFunction(
-    //     string generatorName,
-    //     string executorName,
-    //     string summarizorName,
-    //     string reviewerName)
-    // {
-    //     return AgentGroupChat.CreatePromptFunctionForStrategy(
-    //         $$$"""
-    //         Your job is to determine which participant takes the next turn in a conversation according to the action of the most recent participant.
-    //         State only the name of the participant to take the next turn.
-    //         Never choose the participant named in the RESPONSE.
-
-    //         Choose only from these participants:
-    //         - {{{generatorName}}}
-    //         - {{{executorName}}}
-    //         - {{{summarizorName}}}
-    //         - {{{reviewerName}}}
-
-    //         Always follow these rules when choosing the next participant:
-    //         - After user input, it is {{{generatorName}}}'s turn.
-    //         - If RESPONSE is by {{{generatorName}}} but SQL is not generated then it is {{{reviewerName}}}'s turn
-    //         - If RESPONSE is by {{{generatorName}}} and SQL is generated then it is {{{executorName}}}'s turn
-    //         - If RESPONSE is by {{{executorName}}}, it is {{{summarizorName}}}'s turn.
-    //         - If RESPONSE is by {{{summarizorName}}}, it is {{{reviewerName}}}'s turn.
-            
-            
-    //         RESPONSE:
-    //         {{$lastmessage}}
-    //         """,
-    //         safeParameterNames: "lastmessage");
-    // }
 
     //- If RESPONSE is by {{{reviewerName}}}, it is {{{generatorName}}}'s turn.
 /*

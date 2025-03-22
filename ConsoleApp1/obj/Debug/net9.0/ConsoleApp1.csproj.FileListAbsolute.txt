@@ -96,3 +96,4 @@ C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\refint\C
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.pdb
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.genruntimeconfig.cache
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ref\ConsoleApp1.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.sourcelink.json

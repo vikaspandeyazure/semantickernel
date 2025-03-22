@@ -9,33 +9,7 @@ public static class GroupAgentFactory
 
 
 
-public static ChatCompletionAgent CreateReviewerAgent(string reviewerName, Kernel kernel)
-    {
 
-    ChatCompletionAgent sqlrevieweragent =
-    new()
-    {
-        Name = reviewerName,
-        Instructions ="""
-            You are a text summarization reviewer agent.
-            RULES:
-            - Be humble and polite in your responses.
-            - Suggest how ouptut summarization can be more readable
-            - Do not generate, execute or summarize any SQL queries.
-            - Do not include any additional information.
-            - Do not include any explanation or context.
-            """,
-                 
-        Kernel = kernel,
-        Arguments =
-             new KernelArguments(
-                new AzureOpenAIPromptExecutionSettings() 
-                { 
-                    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() 
-                })
-    };
-    return sqlrevieweragent;
-    }
 
 public static ChatCompletionAgent CreateSQLGeneratorAgent(string generatorName, Kernel kernel)
     {
@@ -50,16 +24,16 @@ public static ChatCompletionAgent CreateSQLGeneratorAgent(string generatorName, 
 
             RULES:
             - Make sure you select the relavant tables only by analysing database schema, do not generate query for any table which is not a part of database
-            - After generating the final select apply top 10 in generated query.
+            - After generating the final select apply top 10 in generated query if any not specified any number by user.
             - Do not include any comments in the query.
             - Do not include any additional text in the query.
             - Do not include any wrappers or markdown.
             - Do not include any explanation or context.
             - Do not include any additional information.
             - Do not call kernel functions to execute the query only generate SQL and return. 
+            - Do not answer any generic question not related to generating sql
             """,
-        
-         //"""Generate SQL queries based on the user's input.Ensure the queries are optimized, secure, and follow best practices. The queries should be able to handle various types of user requests, including data retrieval, updates, deletions, and insertions. Additionally, validate the input to prevent SQL injection attacks and provide meaningful error messages if the input is invalid.""",
+                 
         Kernel = kernel,
         Arguments =
              new KernelArguments(
@@ -91,6 +65,7 @@ public static ChatCompletionAgent CreateSQLGeneratorAgent(string generatorName, 
             - Return only the result of the executed queries
             - Do not return the input SQL query
             - Do not include any explanation or context or additional information
+            - show output in tabular format
             """,
             Kernel = Kernel,
             Arguments =
@@ -129,5 +104,33 @@ public static ChatCompletionAgent CreateSQLGeneratorAgent(string generatorName, 
                     })
         };
         return sqlsummarizeragent;  
+    }
+
+    public static ChatCompletionAgent CreateReviewerAgent(string reviewerName, Kernel kernel)
+    {
+
+    ChatCompletionAgent sqlrevieweragent =
+    new()
+    {
+        Name = reviewerName,
+        Instructions ="""
+            You are a text summarization reviewer agent.
+            RULES:
+            - Be humble and polite in your responses.
+            - Suggest how ouptut summarization can be more readable
+            - Do not generate, execute or summarize any SQL queries.
+            - Do not include any additional information.
+            - Do not include any explanation or context.
+            """,
+                 
+        Kernel = kernel,
+        Arguments =
+             new KernelArguments(
+                new AzureOpenAIPromptExecutionSettings() 
+                { 
+                    FunctionChoiceBehavior = FunctionChoiceBehavior.Auto() 
+                })
+    };
+    return sqlrevieweragent;
     }
 }

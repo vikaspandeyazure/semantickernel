@@ -43,7 +43,7 @@ public async Task IngestDataToChatStore(
         // Commit the provided ChatStore object to the vector store.
         await collection.UpsertAsync(newCacheEntry);
 
-        Console.WriteLine("Chat data committed to cache.");
+        Console.WriteLine("\n>>> This Chat data committed to cache.");
     }
 
   //[KernelFunction, Description("Searches the vector store for Frequently Asked Questions FAQ")]

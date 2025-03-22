@@ -44,7 +44,7 @@ public class AgentGroupChatFactory
                         // The prompt variable name for the history argument.
                         HistoryVariableName = "lastmessage",
                         // Limit total number of turns
-                        MaximumIterations = 3,
+                        MaximumIterations = 5,
                         // Customer result parser to determine if the response is "yes"
                         ResultParser = (result) => result.GetValue<string>()?.Contains(terminationToken, StringComparison.OrdinalIgnoreCase) ?? false
                     }

@@ -319,6 +319,10 @@ public class Program
                 };
                 await _vectorStorePlugin.IngestDataToChatStore(_chatCollectionName, newCacheEntry).ConfigureAwait(false);
             }
+            // else if(response.AuthorName=="SQLChatReviewerAgent")
+            // {
+            //      Console.WriteLine("SQL Chat reviewer invoked");
+            // }
            
 
             PrintTokenCounts();
