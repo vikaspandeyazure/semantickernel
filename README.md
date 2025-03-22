@@ -41,11 +41,11 @@ This project demonstrates an agent-based chat application using Microsoft's Sema
 
         ```dotenv
         AZURE_SQLCONNECTIONSTRING="Server=yourserver.database.windows.net;Database=yourdatabase;User Id=youruserid;Password=yourpassword;Encrypt=true;TrustServerCertificate=false;Connection Timeout=30;"
-        AZURE_OPENAI_ENDPOINT="[https://your-openai-resource.openai.azure.com/](https://www.google.com/search?q=https://your-openai-resource.openai.azure.com/)"
+        AZURE_OPENAI_ENDPOINT="[https://your-openai-resource.openai.azure.com/]"
         AZURE_OPENAI_API_KEY="your-openai-api-key"
-        AZURE_OPENAI_DEPLOYMENTNAME="gpt-35-turbo"
-        AZURE_OPENAI_MODEL="gpt-35-turbo"
-        AZURE_OPENAI_EMBEDDING_ENDPOINT="[https://your-openai-resource.openai.azure.com/](https://www.google.com/search?q=https://your-openai-resource.openai.azure.com/)"
+        AZURE_OPENAI_DEPLOYMENTNAME="gpt-4o"
+        AZURE_OPENAI_MODEL="gpt-4o"
+        AZURE_OPENAI_EMBEDDING_ENDPOINT="[https://your-openai-resource.openai.azure.com/]"
         AZURE_OPENAI_EMBEDDING_API_KEY="your-openai-embedding-api-key"
         AZURE_OPENAI_EMBEDDING_DEPLOYMENTNAME="text-embedding-ada-002"
         AZURE_OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
