@@ -1,3 +1,8 @@
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Azure.Cosmos.ServiceInterop.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Cosmos.CRTCompat.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\msvcp140.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\vcruntime140.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\vcruntime140_1.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\ConsoleApp1.exe
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\ConsoleApp1.deps.json
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\ConsoleApp1.runtimeconfig.json
@@ -8,6 +13,10 @@ C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Azure.Co
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Azure.Identity.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Dapper.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\DotNetEnv.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Azure.Cosmos.Client.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Azure.Cosmos.Core.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Azure.Cosmos.Direct.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Azure.Cosmos.Serialization.HybridRow.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Bcl.Cryptography.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Bcl.HashCode.dll
@@ -52,6 +61,7 @@ C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsof
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.SemanticKernel.Connectors.OpenAI.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.SemanticKernel.Core.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\OpenAI.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Sprache.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\System.ClientModel.dll
@@ -77,6 +87,11 @@ C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\ru\Micro
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\tr\Microsoft.Data.SqlClient.resources.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win-x64\native\Cosmos.CRTCompat.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Azure.Cosmos.ServiceInterop.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win-x64\native\msvcp140.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win-x64\native\vcruntime140.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win-x64\native\vcruntime140_1.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\unix\lib\net9.0\Microsoft.Data.SqlClient.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Data.SqlClient.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
@@ -90,10 +105,15 @@ C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleA
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.AssemblyInfoInputs.cache
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.AssemblyInfo.cs
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.csproj.CoreCompileInputs.cache
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.sourcelink.json
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleA.CB28C8CC.Up2Date
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\refint\ConsoleApp1.dll
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.pdb
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.genruntimeconfig.cache
 C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ref\ConsoleApp1.dll
-C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\obj\Debug\net9.0\ConsoleApp1.sourcelink.json
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\OpenTelemetry.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\OpenTelemetry.Api.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\OpenTelemetry.Api.ProviderBuilderExtensions.dll
+C:\MyProjects\semantickernelgroupchatcgent\ConsoleApp1\bin\Debug\net9.0\OpenTelemetry.Exporter.Console.dll

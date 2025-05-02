@@ -14,6 +14,13 @@ using Microsoft.SemanticKernel.Agents;
 using System.Net;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Azure.Cosmos;
+using Azure.Identity;
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 namespace AgentsSample;
 
@@ -35,6 +42,33 @@ public class Program
         string AZURE_OPENAI_EMBEDDING_API_KEY = Environment.GetEnvironmentVariable("AZURE_OPENAI_EMBEDDING_API_KEY") ?? string.Empty;
         string AZURE_OPENAI_EMBEDDING_DEPLOYMENTNAME = Environment.GetEnvironmentVariable("AZURE_OPENAI_EMBEDDING_DEPLOYMENTNAME") ?? string.Empty;
         string AZURE_OPENAI_EMBEDDING_MODEL = Environment.GetEnvironmentVariable("AZURE_OPENAI_EMBEDDING_MODEL") ?? string.Empty;
+        string AZURE_COSMOSDBCONNECTIONSTRING = Environment.GetEnvironmentVariable("AZURE_COSMOSDBCONNECTIONSTRING") ?? string.Empty;
+        string AZURE_COSMOSDBLOGDATABSEID = Environment.GetEnvironmentVariable("AZURE_COSMOSDBLOGDATABSEID") ?? string.Empty;
+        string AZURE_COSMOSDBLOGCONTAINERID = Environment.GetEnvironmentVariable("AZURE_COSMOSDBLOGCONTAINERID") ?? string.Empty;
+        string AZURE_COSMOSDBENDPOINT = Environment.GetEnvironmentVariable("AZURE_COSMOSDBENDPOINT") ?? string.Empty;
+        string AZURE_OPENAI_CURRENCY = Environment.GetEnvironmentVariable("AZURE_OPENAI_CURRENCY") ?? string.Empty;
+        string AZURE_OPENAI_INPUTTOKENCOST = Environment.GetEnvironmentVariable("AZURE_OPENAI_INPUTTOKENCOST") ?? string.Empty;
+        string AZURE_OPENAI_OUTPUTTOKENCOST = Environment.GetEnvironmentVariable("AZURE_OPENAI_OUTPUTTOKENCOST") ?? string.Empty;
+
+        double OpenAI_InputCost;
+        double OpenAI_OutputCost;
+        OpenAI_InputCost = Double.TryParse(AZURE_OPENAI_INPUTTOKENCOST, out OpenAI_InputCost) ? OpenAI_InputCost : 0.0;
+        OpenAI_OutputCost = Double.TryParse(AZURE_OPENAI_OUTPUTTOKENCOST, out OpenAI_OutputCost) ? OpenAI_OutputCost : 0.0;
+        
+        // Console.WriteLine($"OpenAI_InputCost = {OpenAI_InputCost}, OpenAI_OutputCost = {OpenAI_OutputCost}");
+  
+        
+
+       string sqlScriptPath = "sql\\schema_setup.sql";
+
+        try
+        {
+            await DatabaseCreate.RunSqlScriptIfSchemasNotExistAsync(AZURE_SQLCONNECTIONSTRING, sqlScriptPath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while creating Source Database: {ex.Message}");
+        }
 
         Console.WriteLine("Creating kernel...");
 
@@ -52,15 +86,38 @@ public class Program
             apiKey: AZURE_OPENAI_EMBEDDING_API_KEY,
             modelId: AZURE_OPENAI_EMBEDDING_MODEL);
         
+        //Enable Logging
         //builder.Services.AddLogging(services => services.AddConsole().SetMinimumLevel(LogLevel.Trace));
+
+       builder.Services.AddSingleton<Database>(
+    sp =>
+    {
+        var cosmosClient = new CosmosClient(AZURE_COSMOSDBENDPOINT,new DefaultAzureCredential(), new CosmosClientOptions()
+        {
+            // When initializing CosmosClient manually, setting this property is required 
+            // due to limitations in default serializer. 
+            UseSystemTextJsonSerializerWithOptions = JsonSerializerOptions.Default,
+        });
+
+        return cosmosClient.GetDatabase(AZURE_COSMOSDBLOGDATABSEID);
+    });
+        
+        builder.Services.AddSingleton<ChatLogger>(sp =>
+        {
+            var database = sp.GetRequiredService<Database>();
+            return new ChatLogger(database, AZURE_COSMOSDBLOGCONTAINERID);
+        });
+
 
         Kernel kernel = builder.Build();
         Kernel toolKernel = kernel.Clone();
-
+        //var chatLogger = kernel.Services.GetService<ChatLogger>();
         Console.WriteLine("Creating in-memory vector store...");
 
         var vectorStoreService = kernel.GetRequiredService<InMemoryVectorStore>();
         var textEmbeddingGenerationService = kernel.GetRequiredService<ITextEmbeddingGenerationService>();
+        //var logcosmosdbservice = kernel.GetRequiredService<Database>();
+        ChatLogger chatLogger = kernel.Services.GetRequiredService<ChatLogger>();
 
         var FAQcollectionName = "FAQ";
         var chatcollectionName = "chatstore";
@@ -68,23 +125,21 @@ public class Program
         var vectorStorePlugin = new VectorStorePlugin<string>(vectorStoreService, textEmbeddingGenerationService);
         await vectorStorePlugin.FAQIngestDataToVectorStore(vectorStoreService, FAQcollectionName, () => Guid.NewGuid().ToString());
 
+        // Add plugins to Kernel
         toolKernel.Plugins.AddFromType<ClipboardAccess>();
         toolKernel.Plugins.AddFromObject(new SearchDatabasePluginNoLog(kernel, AZURE_SQLCONNECTIONSTRING));
         kernel.Plugins.AddFromObject(new VectorStorePlugin<string>(vectorStoreService, textEmbeddingGenerationService));
+        //kernel.Plugins.AddFromObject(new ChatLogger<string>(vectorStoreService, textEmbeddingGenerationService));
+        //Enable Logging
         //var logger = kernel.GetRequiredService<ILogger<Program>>();
         Console.WriteLine("Defining agents...");
 
+        //Chatlogger chatLogger = new ChatLogger(logcosmosdbservice, chatcollectionName);
         
-        const string generatorName = "SQLGeneratorAgent";
-        const string executorName = "SQLExecutorAgent";
-        const string summarizorName = "SQLSummarizerAgent";
-        const string reviewerName = "SQLChatReviewerAgent";
-
-        //int OutputTokenCount = 0;
-        //int InputTokenCount = 0;
-        //int TotalTokenCount = 0;
-        double InputCost = 0.0050;
-        double OutputCost = 0.0150;
+        const string generatorName = "GenAgent";
+        const string executorName = "ExecAgent";
+        const string summarizorName = "SummAgent";
+        const string reviewerName = "ReviewAgent";
 
         ChatCompletionAgent agentReviewer = GroupAgentFactory.CreateReviewerAgent(reviewerName, kernel);
         ChatCompletionAgent sqlGeneratorAgent = GroupAgentFactory.CreateSQLGeneratorAgent(generatorName, toolKernel);
@@ -111,7 +166,7 @@ public class Program
 
         Console.WriteLine("Ready!");
 
-        ChatProcessor processor = new ChatProcessor(kernel, vectorStorePlugin, chat, textEmbeddingGenerationService, chatcollectionName, summarizorName, InputCost, OutputCost);
+        ChatProcessor processor = new ChatProcessor(kernel, vectorStorePlugin, chat, textEmbeddingGenerationService, chatcollectionName, summarizorName,reviewerName, OpenAI_InputCost, OpenAI_OutputCost,chatLogger);
         await processor.ProcessChatLoop();
 
     }
@@ -143,212 +198,6 @@ public class Program
         }
     }
 
-    public class ChatProcessor
-    {
-        private bool isComplete = false;
-        private readonly Kernel _kernel;
-        private readonly VectorStorePlugin<string> _vectorStorePlugin;
-        private readonly AgentGroupChat _chat;
-        private readonly ITextEmbeddingGenerationService _embeddingService;
-        private readonly string _chatCollectionName;
-        private readonly string _summarizorName;
-        private readonly double _inputCost;
-        private readonly double _outputCost;
-        public int OutputTokenCount = 0;
-        public int InputTokenCount = 0;
-        public int TotalTokenCount = 0;
 
-        public ChatProcessor(Kernel kernel, VectorStorePlugin<string> vectorStorePlugin, AgentGroupChat chat, ITextEmbeddingGenerationService embeddingService, string chatCollectionName, string summarizorName, double inputCost, double outputCost)
-        {
-            _kernel = kernel;
-            _vectorStorePlugin = vectorStorePlugin;
-            _chat = chat;
-            _embeddingService = embeddingService;
-            _chatCollectionName = chatCollectionName;
-            _summarizorName = summarizorName;
-            _inputCost = inputCost;
-            _outputCost = outputCost;
-        }
-
-        public async Task ProcessChatLoop()
-        {
-            do
-            {
-                string input = GetUserInput();
-                if (string.IsNullOrEmpty(input)) continue;
-
-                switch (input.ToUpperInvariant())
-                {
-                    case "EXIT":
-                        isComplete = true;
-                        break;
-                    case "RESET":
-                        await ResetConversation();
-                        break;
-                    default:
-                        await ProcessUserQuery(input);
-                        break;
-                }
-            } while (!isComplete);
-        }
-
-        private string GetUserInput()
-        {
-            Console.WriteLine();
-            Console.Write("User (To quit type [EXIT] or to reset type [RESET])> ");
-            return Console.ReadLine()?.Trim();
-        }
-
-        private async Task ResetConversation()
-        {
-            InputTokenCount = 0;
-            OutputTokenCount = 0;
-            TotalTokenCount = 0;
-            await _chat.ResetAsync();
-            Console.WriteLine("[Conversation has been reset]");
-        }
-
-       private async Task ProcessUserQuery(string input)
-        {
-            if (input.StartsWith("#", StringComparison.Ordinal))
-            {
-                input = await ReadFromFile(input.Substring(1));
-                if (input == null) return;
-            }
-
-            string vectorSearchResult = await PerformVectorSearch(input);
-            if (await HandleVectorSearchResult(vectorSearchResult)) return;
-
-            _chat.AddChatMessage(new ChatMessageContent(AuthorRole.User, input));
-            await InvokeAgentChat(input);
-            _chat.IsComplete = false;
-        }
-
-        private async Task<string> ReadFromFile(string filePath)
-        {
-            try
-            {
-                if (!File.Exists(filePath))
-                {
-                    Console.WriteLine($"Unable to access file: {filePath}");
-                    return null;
-                }
-                string fileContent = await File.ReadAllTextAsync(filePath);
-                Console.WriteLine($"\nInput Query from file: {fileContent}");
-                return fileContent;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Unable to access file: {filePath}. Error: {ex.Message}");
-                return null;
-            }
-        }
-
-        private async Task<string> PerformVectorSearch(string input)
-        {
-            Console.WriteLine($">>>>>>>>>>> Searching Chat Cache for recent conversations <<<<<<<<<<<<<<\n");
-            return await _vectorStorePlugin.SearchChatStore(_chatCollectionName, input);
-        }
-
-       private async Task<bool> HandleVectorSearchResult(string vectorSearchResult)
-        {
-    // Even if you don't use await, it is still required to have one for async methods,
-    // so we will add a delay of 0 milliseconds.
-    await Task.Delay(0);
-
-    if (!string.IsNullOrWhiteSpace(vectorSearchResult) && vectorSearchResult != "No results found.")
-    {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($">>>>>>>>>>>Chat cache search Result:\n{vectorSearchResult}");
-        Console.Write("\nIs the answer correct? (Yes/No)> ");
-        Console.ResetColor();
-        string userResponse = Console.ReadLine()?.Trim();
-
-        if (userResponse?.Equals("Yes", StringComparison.OrdinalIgnoreCase) == true)
-        {
-            isComplete = true;
-            return true;
-        }
-    }
-    return false;
-        }
-
-        private async Task InvokeAgentChat(string input)
-        {
-            try
-            {
-                await foreach (ChatMessageContent response in _chat.InvokeAsync())
-                {
-                    await ProcessAgentResponse(input, response);
-                }
-            }
-            catch (HttpOperationException exception)
-            {
-                HandleHttpException(exception);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine($"An error occurred while invoking agent chat: {exception.Message}");
-            }
-        }
-
-        private async Task ProcessAgentResponse(string input, ChatMessageContent response)
-        {
-
-            
-
-            TokenCounts? tokenCounts = JsonSerializer.Deserialize<TokenCounts>(JsonSerializer.Serialize(response.Metadata?["Usage"]) ?? string.Empty);
-            if (tokenCounts != null)
-            {
-                OutputTokenCount += tokenCounts.OutputTokenCount;
-                InputTokenCount += tokenCounts.InputTokenCount;
-                TotalTokenCount += tokenCounts.TotalTokenCount;
-            }
-
-            Console.WriteLine($"{response.AuthorName?.ToUpperInvariant() ?? "UNKNOWN"}:{Environment.NewLine}{response.Content}");
-
-            if (response.AuthorName == _summarizorName)
-            {
-                Func<string> uniqueKeyGenerator = () => Guid.NewGuid().ToString();
-                var newCacheEntry = new ChatStore<string>
-                {
-                    QuestionId = uniqueKeyGenerator(),
-                    Question = input,
-                    Answer = response.Content ?? string.Empty,
-                    QuestionEmbedding = await _embeddingService.GenerateEmbeddingAsync(input)
-                };
-                await _vectorStorePlugin.IngestDataToChatStore(_chatCollectionName, newCacheEntry).ConfigureAwait(false);
-            }
-            // else if(response.AuthorName=="SQLChatReviewerAgent")
-            // {
-            //      Console.WriteLine("SQL Chat reviewer invoked");
-            // }
-           
-
-            PrintTokenCounts();
-        }
-
-        private void PrintTokenCounts()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nTotalInputToken: {InputTokenCount} | ${InputTokenCount / 1000 * _inputCost} | TotalOutputToken: {OutputTokenCount} | ${OutputTokenCount / 1000 * _outputCost} | TotalTokens: {TotalTokenCount} | ${InputTokenCount / 1000 * _inputCost + OutputTokenCount / 1000 * _outputCost}");
-            Console.ResetColor();
-        }
-
-        private void HandleHttpException(HttpOperationException exception)
-        {
-            Console.WriteLine($"Http main exception {exception.Message}");
-            Console.WriteLine(exception.StackTrace);
-            if (exception.InnerException != null)
-            {
-                Console.WriteLine($"Http Exception : {exception.InnerException.Message}");
-                Console.WriteLine(exception.StackTrace);
-                if (exception.InnerException.Data.Count > 0)
-                {
-                    Console.WriteLine(JsonSerializer.Serialize(exception.InnerException.Data, new JsonSerializerOptions() { WriteIndented = true }));
-                }
-        }
-    }
     
-}
 }

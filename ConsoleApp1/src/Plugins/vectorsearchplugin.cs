@@ -79,7 +79,7 @@ public async Task IngestDataToChatStore(
         }
         catch (Exception ex)
         {
-            return $"Error during search: {ex.Message}";
+            return $"Error during Chat search: {ex.Message}";
         }
     }
 

@@ -5,29 +5,29 @@ using System.Text.Json.Serialization;
 namespace AgentsSample;
 public class TokenDetails
 {
-    [JsonPropertyName("ReasoningTokenCount")]
-    public int ReasoningTokenCount { get; set; }
+    [JsonPropertyName("ReasoningToken")]
+    public int ReasoningToken { get; set; }
 
-    [JsonPropertyName("AudioTokenCount")]
-    public int AudioTokenCount { get; set; }
+    [JsonPropertyName("AudioToken")]
+    public int AudioToken { get; set; }
 
-    [JsonPropertyName("AcceptedPredictionTokenCount")]
-    public int AcceptedPredictionTokenCount { get; set; }
+    [JsonPropertyName("AcceptedPredictionToken")]
+    public int AcceptedPredictionToken { get; set; }
 
-    [JsonPropertyName("RejectedPredictionTokenCount")]
-    public int RejectedPredictionTokenCount { get; set; }
+    [JsonPropertyName("RejectedPredictionToken")]
+    public int RejectedPredictionToken { get; set; }
 }
 
 public class InputTokenDetails
 {
-    [JsonPropertyName("AudioTokenCount")]
-    public int AudioTokenCount { get; set; }
+    [JsonPropertyName("AudioToken")]
+    public int AudioToken { get; set; }
 
-    [JsonPropertyName("CachedTokenCount")]
-    public int CachedTokenCount { get; set; }
+    [JsonPropertyName("CachedToken")]
+    public int CachedToken { get; set; }
 }
 
-public class TokenCounts
+public class Tokens
 {
     [JsonPropertyName("OutputTokenCount")]
     public int OutputTokenCount { get; set; }

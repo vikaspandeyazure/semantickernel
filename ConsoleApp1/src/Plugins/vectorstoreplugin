@@ -20,7 +20,7 @@
 //     {
 //         _vectorStore = vectorStore;
 //         _embeddingGenerator = embeddingGenerator;
-//         _connectionString = connectionString;
+//         _connectionString = connectionString;`
 //     }
 
 //     public async Task InitializeSchemaCacheAsync()

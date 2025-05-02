@@ -65,8 +65,8 @@ public static ChatCompletionAgent CreateSQLGeneratorAgent(string generatorName, 
             - Return only the result of the executed queries
             - Do not return the input SQL query
             - Do not include any explanation or context or additional information
-            - show output in tabular format
-            """,
+            - Show only the result of the query in tabular format
+        """,
             Kernel = Kernel,
             Arguments =
              new KernelArguments(

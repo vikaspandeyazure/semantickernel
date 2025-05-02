@@ -11,6 +11,7 @@
           "Azure.Identity": "1.13.2",
           "Dapper": "2.1.66",
           "DotNetEnv": "3.1.1",
+          "Microsoft.Azure.Cosmos": "3.48.0",
           "Microsoft.Data.SqlClient": "6.0.1",
           "Microsoft.Extensions.Configuration": "9.0.2",
           "Microsoft.Extensions.Configuration.Binder": "9.0.2",
@@ -25,6 +26,8 @@
           "Microsoft.SemanticKernel.Connectors.AzureOpenAI": "1.38.0",
           "Microsoft.SemanticKernel.Connectors.InMemory": "1.41.0-preview",
           "Microsoft.SemanticKernel.Core": "1.41.0",
+          "Newtonsoft.Json": "13.0.3",
+          "OpenTelemetry.Exporter.Console": "1.11.2",
           "xunit.abstractions": "2.0.3"
         },
         "runtime": {
@@ -47,7 +50,7 @@
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "8.0.0",
           "System.ClientModel": "1.2.1",
-          "System.Diagnostics.DiagnosticSource": "8.0.1",
+          "System.Diagnostics.DiagnosticSource": "9.0.0",
           "System.Memory.Data": "6.0.0",
           "System.Numerics.Vectors": "4.5.0",
           "System.Text.Encodings.Web": "6.0.0",
@@ -97,6 +100,69 @@
           "lib/netstandard1.3/DotNetEnv.dll": {
             "assemblyVersion": "3.1.1.0",
             "fileVersion": "3.1.1.0"
+          }
+        }
+      },
+      "Microsoft.Azure.Cosmos/3.48.0": {
+        "dependencies": {
+          "Azure.Core": "1.44.1",
+          "Microsoft.Bcl.AsyncInterfaces": "8.0.0",
+          "Microsoft.Bcl.HashCode": "1.1.1",
+          "System.Buffers": "4.5.1",
+          "System.Collections.Immutable": "1.7.0",
+          "System.Configuration.ConfigurationManager": "9.0.0",
+          "System.Diagnostics.DiagnosticSource": "9.0.0",
+          "System.Memory": "4.5.5",
+          "System.Net.Http": "4.3.4",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
+          "System.Text.RegularExpressions": "4.3.1",
+          "System.Threading.Tasks.Extensions": "4.5.4",
+          "System.ValueTuple": "4.5.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Azure.Cosmos.Client.dll": {
+            "assemblyVersion": "3.48.0.0",
+            "fileVersion": "3.48.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Azure.Cosmos.Core.dll": {
+            "assemblyVersion": "2.11.0.0",
+            "fileVersion": "2.11.0.0"
+          },
+          "lib/netstandard2.0/Microsoft.Azure.Cosmos.Direct.dll": {
+            "assemblyVersion": "3.37.10.0",
+            "fileVersion": "3.37.10.0"
+          },
+          "lib/netstandard2.0/Microsoft.Azure.Cosmos.Serialization.HybridRow.dll": {
+            "assemblyVersion": "1.1.0.0",
+            "fileVersion": "1.1.0.0"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win-x64/native/Cosmos.CRTCompat.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "2.0.0.0"
+          },
+          "runtimes/win-x64/native/Microsoft.Azure.Cosmos.ServiceInterop.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "2.14.0.0"
+          },
+          "runtimes/win-x64/native/msvcp140.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "14.39.33521.0"
+          },
+          "runtimes/win-x64/native/vcruntime140.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "14.39.33521.0"
+          },
+          "runtimes/win-x64/native/vcruntime140_1.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "14.39.33521.0"
           }
         }
       },
@@ -359,6 +425,18 @@
           }
         }
       },
+      "Microsoft.Extensions.Diagnostics.Abstractions/9.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.2",
+          "Microsoft.Extensions.Options": "9.0.2"
+        },
+        "runtime": {
+          "lib/net9.0/Microsoft.Extensions.Diagnostics.Abstractions.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.24.52809"
+          }
+        }
+      },
       "Microsoft.Extensions.FileProviders.Abstractions/9.0.2": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.2"
@@ -494,7 +572,7 @@
       "Microsoft.Identity.Client/4.67.2": {
         "dependencies": {
           "Microsoft.IdentityModel.Abstractions": "7.5.0",
-          "System.Diagnostics.DiagnosticSource": "8.0.1"
+          "System.Diagnostics.DiagnosticSource": "9.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Identity.Client.dll": {
@@ -589,7 +667,7 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.2",
           "Microsoft.Extensions.Logging.Abstractions": "9.0.2",
           "Microsoft.Extensions.VectorData.Abstractions": "9.0.0-preview.1.25161.1",
-          "System.Diagnostics.DiagnosticSource": "8.0.1",
+          "System.Diagnostics.DiagnosticSource": "9.0.0",
           "System.Text.Json": "8.0.5"
         },
         "runtime": {
@@ -750,15 +828,70 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
+      "Newtonsoft.Json/13.0.3": {
+        "runtime": {
+          "lib/net6.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.3.27908"
+          }
+        }
+      },
       "OpenAI/2.2.0-beta.1": {
         "dependencies": {
           "System.ClientModel": "1.2.1",
-          "System.Diagnostics.DiagnosticSource": "8.0.1"
+          "System.Diagnostics.DiagnosticSource": "9.0.0"
         },
         "runtime": {
           "lib/net8.0/OpenAI.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "OpenTelemetry/1.11.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Diagnostics.Abstractions": "9.0.0",
+          "Microsoft.Extensions.Logging.Configuration": "9.0.2",
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.11.2"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.11.2.1586"
+          }
+        }
+      },
+      "OpenTelemetry.Api/1.11.2": {
+        "dependencies": {
+          "System.Diagnostics.DiagnosticSource": "9.0.0"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Api.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.11.2.1586"
+          }
+        }
+      },
+      "OpenTelemetry.Api.ProviderBuilderExtensions/1.11.2": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.2",
+          "OpenTelemetry.Api": "1.11.2"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.11.2.1586"
+          }
+        }
+      },
+      "OpenTelemetry.Exporter.Console/1.11.2": {
+        "dependencies": {
+          "OpenTelemetry": "1.11.2"
+        },
+        "runtime": {
+          "lib/net9.0/OpenTelemetry.Exporter.Console.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.11.2.1586"
           }
         }
       },
@@ -830,15 +963,7 @@
           "System.Runtime": "4.3.1"
         }
       },
-      "System.Buffers/4.3.0": {
-        "dependencies": {
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Threading": "4.3.0"
-        }
-      },
+      "System.Buffers/4.5.1": {},
       "System.ClientModel/1.2.1": {
         "dependencies": {
           "System.Memory.Data": "6.0.0",
@@ -872,6 +997,7 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
+      "System.Collections.Immutable/1.7.0": {},
       "System.Configuration.ConfigurationManager/9.0.0": {
         "dependencies": {
           "System.Diagnostics.EventLog": "9.0.0",
@@ -900,7 +1026,7 @@
           "System.Runtime": "4.3.1"
         }
       },
-      "System.Diagnostics.DiagnosticSource/8.0.1": {},
+      "System.Diagnostics.DiagnosticSource/9.0.0": {},
       "System.Diagnostics.EventLog/9.0.0": {
         "runtime": {
           "lib/net9.0/System.Diagnostics.EventLog.dll": {
@@ -986,7 +1112,7 @@
       "System.IO.Compression/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.1",
-          "System.Buffers": "4.3.0",
+          "System.Buffers": "4.5.1",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.IO": "4.3.0",
@@ -1004,7 +1130,7 @@
       },
       "System.IO.Compression.ZipFile/4.3.0": {
         "dependencies": {
-          "System.Buffers": "4.3.0",
+          "System.Buffers": "4.5.1",
           "System.IO": "4.3.0",
           "System.IO.Compression": "4.3.0",
           "System.IO.FileSystem": "4.3.0",
@@ -1090,7 +1216,7 @@
           "Microsoft.NETCore.Platforms": "1.1.1",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.DiagnosticSource": "8.0.1",
+          "System.Diagnostics.DiagnosticSource": "9.0.0",
           "System.Diagnostics.Tracing": "4.3.0",
           "System.Globalization": "4.3.0",
           "System.Globalization.Extensions": "4.3.0",
@@ -1464,6 +1590,7 @@
           "System.Runtime": "4.3.1"
         }
       },
+      "System.ValueTuple/4.5.0": {},
       "System.Xml.ReaderWriter/4.3.0": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -1549,6 +1676,13 @@
       "sha512": "sha512-o4SqUVCq0pqHF/HYsZk6k22XGIVmvsDVo+Dy7l0ubq9uQ45JkXswrMRJmYvhGLXWFYF0M5OupMonytB+0zvpGQ==",
       "path": "dotnetenv/3.1.1",
       "hashPath": "dotnetenv.3.1.1.nupkg.sha512"
+    },
+    "Microsoft.Azure.Cosmos/3.48.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OsjRhH0n9K+TtoV6JV1zsDKQeOcXtuUGRBs6V/hx3ik9YoeKERgv/ZMSrIXaEN6bGHK6pSN+3FvaGuUIAtnzrQ==",
+      "path": "microsoft.azure.cosmos/3.48.0",
+      "hashPath": "microsoft.azure.cosmos.3.48.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "type": "package",
@@ -1668,6 +1802,13 @@
       "sha512": "sha512-MNe7GSTBf3jQx5vYrXF0NZvn6l7hUKF6J54ENfAgCO8y6xjN1XUmKKWG464LP2ye6QqDiA1dkaWEZBYnhoZzjg==",
       "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.2",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.2.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Diagnostics.Abstractions/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1K8P7XzuzX8W8pmXcZjcrqS6x5eSSdvhQohmcpgiQNY/HlDAlnrhR9dvlURfFz428A+RTCJpUyB+aKTA6AgVcQ==",
+      "path": "microsoft.extensions.diagnostics.abstractions/9.0.0",
+      "hashPath": "microsoft.extensions.diagnostics.abstractions.9.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.FileProviders.Abstractions/9.0.2": {
       "type": "package",
@@ -1893,12 +2034,47 @@
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
     },
+    "Newtonsoft.Json/13.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "path": "newtonsoft.json/13.0.3",
+      "hashPath": "newtonsoft.json.13.0.3.nupkg.sha512"
+    },
     "OpenAI/2.2.0-beta.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-h0NKU7n5CppiyhZvcu6RtmrHUnN8IUpvbfCuEhFMPaeWKJIGEpRVP3PVywuJAqPugXp0zMFM3afFQFDQ8Sjiaw==",
       "path": "openai/2.2.0-beta.1",
       "hashPath": "openai.2.2.0-beta.1.nupkg.sha512"
+    },
+    "OpenTelemetry/1.11.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FwonkaCVW8M9DLTHmAeJ+znsQCeOVvF4vSBworyq6f55RJB62LFmK7h7SG2aNERTknxP5RoGSwGOBPcVEgC07w==",
+      "path": "opentelemetry/1.11.2",
+      "hashPath": "opentelemetry.1.11.2.nupkg.sha512"
+    },
+    "OpenTelemetry.Api/1.11.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jgSd/FvtxPPc6nLaZnFj+bulHM2iQjy+NBCY5MbQjH6vkW/SfcXD9NMP3pKCmdF+SbZpgL+EoLQc+PmcnYYLlA==",
+      "path": "opentelemetry.api/1.11.2",
+      "hashPath": "opentelemetry.api.1.11.2.nupkg.sha512"
+    },
+    "OpenTelemetry.Api.ProviderBuilderExtensions/1.11.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y1aag4WT9f3rF8jQWwub5DsFVXpM/5NQsfYg6lmsNQrtJ6TcRqQu2PubcHXeIX2N6TA7XF3ffQAgeJklsSLeoQ==",
+      "path": "opentelemetry.api.providerbuilderextensions/1.11.2",
+      "hashPath": "opentelemetry.api.providerbuilderextensions.1.11.2.nupkg.sha512"
+    },
+    "OpenTelemetry.Exporter.Console/1.11.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-d0XCfZiLsxufXz4b6SnVoQFL5j4nCq6AOUypYZKiSj1eqVS+MgApkuPA0JkIrEduVgLh70DdBbdFGfloD00Atw==",
+      "path": "opentelemetry.exporter.console/1.11.2",
+      "hashPath": "opentelemetry.exporter.console.1.11.2.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",
@@ -2026,12 +2202,12 @@
       "path": "system.appcontext/4.3.0",
       "hashPath": "system.appcontext.4.3.0.nupkg.sha512"
     },
-    "System.Buffers/4.3.0": {
+    "System.Buffers/4.5.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ratu44uTIHgeBeI0dE8DWvmXVBSo4u7ozRZZHOMmK/JPpYyo0dAfgSiHlpiObMQ5lEtEyIXA40sKRYg5J6A8uQ==",
-      "path": "system.buffers/4.3.0",
-      "hashPath": "system.buffers.4.3.0.nupkg.sha512"
+      "sha512": "sha512-Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "path": "system.buffers/4.5.1",
+      "hashPath": "system.buffers.4.5.1.nupkg.sha512"
     },
     "System.ClientModel/1.2.1": {
       "type": "package",
@@ -2054,6 +2230,13 @@
       "path": "system.collections.concurrent/4.3.0",
       "hashPath": "system.collections.concurrent.4.3.0.nupkg.sha512"
     },
+    "System.Collections.Immutable/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RVSM6wZUo6L2y6P3vN6gjUtyJ2IF2RVtrepF3J7nrDKfFQd5u/SnSUFclchYQis8/k5scHy9E+fVeKVQLnnkzw==",
+      "path": "system.collections.immutable/1.7.0",
+      "hashPath": "system.collections.immutable.1.7.0.nupkg.sha512"
+    },
     "System.Configuration.ConfigurationManager/9.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2075,12 +2258,12 @@
       "path": "system.diagnostics.debug/4.3.0",
       "hashPath": "system.diagnostics.debug.4.3.0.nupkg.sha512"
     },
-    "System.Diagnostics.DiagnosticSource/8.0.1": {
+    "System.Diagnostics.DiagnosticSource/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vaoWjvkG1aenR2XdjaVivlCV9fADfgyhW5bZtXT23qaEea0lWiUljdQuze4E31vKM7ZWJaSUsbYIKE3rnzfZUg==",
-      "path": "system.diagnostics.diagnosticsource/8.0.1",
-      "hashPath": "system.diagnostics.diagnosticsource.8.0.1.nupkg.sha512"
+      "sha512": "sha512-ddppcFpnbohLWdYKr/ZeLZHmmI+DXFgZ3Snq+/E7SwcdW4UnvxmaugkwGywvGVWkHPGCSZjCP+MLzu23AL5SDw==",
+      "path": "system.diagnostics.diagnosticsource/9.0.0",
+      "hashPath": "system.diagnostics.diagnosticsource.9.0.0.nupkg.sha512"
     },
     "System.Diagnostics.EventLog/9.0.0": {
       "type": "package",
@@ -2480,6 +2663,13 @@
       "sha512": "sha512-Z6YfyYTCg7lOZjJzBjONJTFKGN9/NIYKSxhU5GRd+DTwHSZyvWp1xuI5aR+dLg+ayyC5Xv57KiY4oJ0tMO89fQ==",
       "path": "system.threading.timer/4.3.0",
       "hashPath": "system.threading.timer.4.3.0.nupkg.sha512"
+    },
+    "System.ValueTuple/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "path": "system.valuetuple/4.5.0",
+      "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
     },
     "System.Xml.ReaderWriter/4.3.0": {
       "type": "package",

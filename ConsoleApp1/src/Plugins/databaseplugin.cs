@@ -14,18 +14,6 @@ public class SearchDatabasePluginNoLog(Kernel kernel, string connectionString)
     //private readonly ILogger logger = logger;
     private readonly Kernel kernel = kernel;    
     private readonly string connectionString = connectionString;
-/* Query the SALES database to return data for the given query, The high-level schema of the database as follows:
-         TABLE production.products : columns [product_id],[product_name],[brand_id],[category_id],[model_year],[list_price]
-         TABLE production.stocks : [stock_id],[product_id],[quantity],[store_id]       
-         TABLE production.categories : [category_id],[category_name]
-         TABLE production.brands : [brand_id],[brand_name]
-         TABLE sales.customers : [customer_id],[first_name],[last_name],[phone],[email],[street],[city],[state],[zip_code]
-         TABLE sales.stores : [store_id],[store_name],[phone],[email],[street],[city],[state],[zip_code]
-         TABLE sales.staffs : [staff_id],[first_name],[last_name],[email],[phone],[active],[store_id],[manager_id]
-         TABLE sales.orders : [order_id],[order_date],[status],[staff_id],[customer_id]
-         TABLE sales.order_items : [order_id],[item_id],[product_id],[quantity],[list_price],[discount]*/
-
-         //Query the SALES database to return data for the given query,run the procedure dbo.GetDatabaseSchema for the high-level schema of the database   
     [KernelFunction("query_database")]
    [Description("""
          Query the SALES database to return data for the given query, The high-level schema of the database as follows:
@@ -143,4 +131,6 @@ public class SearchDatabasePlugin(Kernel kernel, ILogger logger, string connecti
                      
     //     return sessions;    
     // }
+
+ 
 }

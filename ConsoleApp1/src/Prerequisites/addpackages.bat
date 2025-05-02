@@ -10,3 +10,7 @@ dotnet add package Microsoft.Data.SqlClient --version 6.0.1
 dotnet add package Dapper --version 2.1.66
 dotnet add package Microsoft.SemanticKernel.Connectors.InMemory --prerelease
 dotnet add package xunit.abstractions --version 2.0.3
+dotnet add package Microsoft.Azure.Cosmos --version 3.48.0
+dotnet add package Newtonsoft.Json --version 13.0.3
+dotnet add package Microsoft.SemanticKernel.Connectors.AzureOpenAI --version 1.42.0
+dotnet add package OpenTelemetry.Exporter.Console
