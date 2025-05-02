@@ -41,14 +41,30 @@ This project demonstrates an agent-based chat application using Microsoft's Sema
 
         ```dotenv
         AZURE_SQLCONNECTIONSTRING="Server=yourserver.database.windows.net;Database=yourdatabase;User Id=youruserid;Password=yourpassword;Encrypt=true;TrustServerCertificate=false;Connection Timeout=30;"
-        AZURE_OPENAI_ENDPOINT="[https://your-openai-resource.openai.azure.com/]"
-        AZURE_OPENAI_API_KEY="your-openai-api-key"
-        AZURE_OPENAI_DEPLOYMENTNAME="gpt-4o"
-        AZURE_OPENAI_MODEL="gpt-4o"
+
+
+        AZURE_OPENAI_EMBEDDING_API_KEY=""
         AZURE_OPENAI_EMBEDDING_ENDPOINT="[https://your-openai-resource.openai.azure.com/]"
-        AZURE_OPENAI_EMBEDDING_API_KEY="your-openai-embedding-api-key"
-        AZURE_OPENAI_EMBEDDING_DEPLOYMENTNAME="text-embedding-ada-002"
         AZURE_OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
+        AZURE_OPENAI_EMBEDDING_DEPLOYMENTNAME="text-embedding-ada-002"
+        AZURE_OPENAI_EMBEDDING_CURRENCY="$"
+        AZURE_OPENAI_EMBEDDING_INPUTTOKENCOST="0.0025"
+        AZURE_OPENAI_EMBEDDING_OUTPUTTOKENCOST="0.0100"
+
+        AZURE_OPENAI_API_KEY="M"
+        AZURE_OPENAI_ENDPOINT="[https://your-openai-resource.openai.azure.com/]"
+        AZURE_OPENAI_MODEL="gpt-4o"
+        AZURE_OPENAI_DEPLOYMENTNAME="gpt-4o"
+        AZURE_OPENAI_CURRENCY="$"
+        AZURE_OPENAI_INPUTTOKENCOST="0.0025"
+        AZURE_OPENAI_OUTPUTTOKENCOST="0.0100"
+
+        AZURE_SQLCONNECTIONSTRING=""
+
+        AZURE_COSMOSDBCONNECTIONSTRING="[https://yourdatabase.documents.azure.com:443/"]
+        AZURE_COSMOSDBKEY=""
+        AZURE_COSMOSDBLOGDATABSEID="chatdb"
+        AZURE_COSMOSDBLOGCONTAINERID="chatlog"
         ```
 
     * **Important:** Ensure that the deployment names match the models you've deployed in your Azure OpenAI service.
